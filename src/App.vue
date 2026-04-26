@@ -53,276 +53,225 @@ const printDoc = () => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-[#0a0f1c] pt-0 pb-8 px-4 sm:px-6 lg:px-8 print:p-0 print:bg-white flex flex-col items-center gap-8 text-slate-300">
+  <div class="min-h-screen bg-win95-bg pt-4 pb-8 px-4 sm:px-6 lg:px-8 print:p-0 print:bg-white flex flex-col items-center gap-8 text-win95-text font-win95">
     
-    <!-- PAGE 1 -->
-    <div class="w-full max-w-[600px] min-w-[320px] min-h-[33cm] pt-0 pb-[2cm] bg-[#161b2a] shadow-2xl rounded-b-xl sm:rounded-xl overflow-hidden border border-slate-800/60 border-t-0 sm:border-t print:shadow-none print:border-none print:max-w-none print:w-full print:text-black print:p-0 print:m-0 print:break-after-page flex flex-col">
+    <!-- MAIN WINDOW -->
+    <div class="w-full max-w-[800px] win95-window flex flex-col print:shadow-none print:border-none print:max-w-none print:w-full print:p-0 print:m-0 print:bg-white">
       
-      <!-- Header Section -->
-      <div class="bg-[#080d1a] p-6 border-b-4 border-emerald-500/30 print:bg-white print:border-b-2 print:border-black flex items-center justify-between">
-        <!-- Logo -->
-        <div class="flex items-start">
-          <img src="https://ik.imagekit.io/p5pirzkod/sha256.us/Logo.svg" alt="SHA256.US forensic laboratory" class="h-12 sm:h-14 object-contain print:h-12" />
+      <!-- Window Title Bar -->
+      <div class="win95-titlebar mb-[2px] no-print">
+        <div class="flex items-center gap-1.5 overflow-hidden">
+          <FileText :size="14" />
+          <span class="truncate">PRCC Digital - Registro de Cadena de Custodia</span>
         </div>
-        <!-- Title -->
-        <div class="text-right">
-          <h2 class="text-emerald-400 font-bold text-sm sm:text-base uppercase tracking-widest leading-tight print:text-black">
-            Planilla de Registro<br/>de Cadena de Custodia
-          </h2>
-          <p class="text-slate-400 text-[10px] sm:text-xs mt-1 tracking-widest print:text-black">(PRCC)</p>
+        <div class="flex gap-1 shrink-0">
+          <button class="win95-button !px-1 !py-0 w-4 h-4 flex items-center justify-center font-bold text-[10px]">_</button>
+          <button class="win95-button !px-1 !py-0 w-4 h-4 flex items-center justify-center font-bold text-[10px]">□</button>
+          <button class="win95-button !px-1 !py-0 w-4 h-4 flex items-center justify-center font-bold text-[10px]">X</button>
         </div>
       </div>
 
-      <!-- Section I: Datos Generales -->
-      <section class="border-b border-slate-800/60 print:border-slate-300">
-        <div class="bg-[#080d1a] px-6 py-3 print:bg-slate-100">
-          <h3 class="text-slate-100 font-bold text-sm flex items-center gap-2 print:text-black">
-            <FileText :size="16" class="text-emerald-400 print:text-black" />
-            I. DATOS GENERALES
-          </h3>
-        </div>
-        <div class="p-6 space-y-4 bg-[#161b2a] print:bg-white print:grid print:grid-cols-2 print:gap-4 print:space-y-0">
-          <!-- Stacked for email layout -->
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">a. N° de Expediente</label>
-            <input type="text" v-model="formData.expediente" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">b. N° PRCC</label>
-            <input type="text" v-model="formData.prcc" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">c. Despacho que instruye</label>
-            <input type="text" v-model="formData.despachoInstruye" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">d. Organismo que investiga e instructivo</label>
-            <input type="text" v-model="formData.organismoInvestiga" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">e. Despacho que inicia la custodia</label>
-            <input type="text" v-model="formData.despachoCustodia" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">f. Organismo que custodia</label>
-            <input type="text" v-model="formData.organismoCustodia" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">g. Dirección de Obtención</label>
-            <input type="text" v-model="formData.direccionObtencion" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-          <div class="space-y-1">
-            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-tight print:text-slate-700">h. Fecha y Hora</label>
-            <input type="text" v-model="formData.fechaHora" class="w-full bg-[#0a0f1c] border border-slate-700/80 rounded px-3 py-2 text-sm text-slate-200 focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none transition-all print:bg-white print:text-black print:border-slate-300 print:py-1" />
-          </div>
-        </div>
-      </section>
+      <!-- Menu bar -->
+      <div class="flex px-1 gap-4 mb-2 text-[11px] border-b border-win95-border-mid pb-1 no-print">
+        <span class="cursor-default hover:bg-win95-title-bg hover:text-white px-1"><u>A</u>rchivo</span>
+        <span class="cursor-default hover:bg-win95-title-bg hover:text-white px-1"><u>E</u>dición</span>
+        <span class="cursor-default hover:bg-win95-title-bg hover:text-white px-1"><u>V</u>er</span>
+        <span class="cursor-default hover:bg-win95-title-bg hover:text-white px-1"><u>A</u>yuda</span>
+      </div>
 
-      <!-- Section II: Formas de Obtención -->
-      <section class="border-b border-slate-800/60 print:border-slate-300">
-        <div class="bg-[#080d1a] px-6 py-3 print:bg-slate-100">
-          <h3 class="text-slate-100 font-bold text-sm flex items-center gap-2 print:text-black">
-            <Search :size="16" class="text-emerald-400 print:text-black" />
-            II. FORMAS DE OBTENCIÓN
-          </h3>
-        </div>
-        <div class="grid grid-cols-2 print:grid-cols-4 divide-x divide-y divide-slate-800/60 border-b border-slate-800/60 print:divide-slate-200 print:border-slate-200">
-          <div v-for="(label, num) in {'1': 'Técnica', '2': 'Aseguramiento', '3': 'Consignación', '4': 'Derivación'}" :key="num" 
-               @click="toggleObtencion(num)"
-               class="flex items-center justify-between p-4 bg-[#161b2a] hover:bg-[#1a202e] transition-colors cursor-pointer print:bg-white print:hover:bg-slate-50">
-            <div class="flex items-center gap-2">
-              <span class="text-xs font-bold text-slate-400 print:text-slate-600">{{num}}.</span>
-              <span class="text-xs font-bold text-slate-200 uppercase tracking-tight print:text-slate-900">{{label}}</span>
-            </div>
-            <div :class="['w-5 h-5 border rounded-sm flex items-center justify-center transition-colors print:border-slate-400', obtencion[num] ? 'bg-emerald-500 border-emerald-600' : 'bg-[#0a0f1c] border-slate-700/80 print:bg-slate-50 print:border-slate-300']">
-              <Check v-if="obtencion[num]" :size="12" class="text-white" />
-            </div>
+      <!-- Header Content -->
+      <div class="p-4 flex flex-col gap-4 print:p-0">
+        <div class="win95-inset p-4 bg-white flex flex-col sm:flex-row items-center justify-between gap-4 print:border-none print:shadow-none">
+          <div class="flex items-center">
+            <img src="https://ik.imagekit.io/p5pirzkod/sha256.us/Logo.svg" alt="Logo" class="h-10 object-contain grayscale" />
+          </div>
+          <div class="text-right">
+            <h1 class="text-lg font-bold text-win95-title-bg leading-tight">Planilla de Registro de Cadena de Custodia</h1>
+            <p class="text-xs italic">(PRCC) - Sistema de Gestión de Evidencias</p>
           </div>
         </div>
-      </section>
-    </div>
 
-    <!-- PAGE 2 -->
-    <div class="w-full max-w-[600px] min-w-[320px] min-h-[33cm] py-[2cm] bg-[#161b2a] shadow-2xl rounded-xl overflow-hidden border border-slate-800/60 print:shadow-none print:border-none print:max-w-none print:w-full print:text-black print:p-0 print:m-0 print:break-after-page flex flex-col">
-      
-      <!-- Section III: Funcionario -->
-      <section class="border-b border-slate-800/60 print:border-slate-300">
-        <div class="bg-[#080d1a] px-6 py-3 print:bg-slate-100">
-          <h3 class="text-slate-100 font-bold text-sm flex items-center gap-2 print:text-black">
-            <User :size="16" class="text-emerald-400 print:text-black" />
-            III. FUNCIONARIO QUE OBTIENE
-          </h3>
-        </div>
-        <div class="p-6 space-y-6 bg-[#161b2a] print:bg-white print:grid print:grid-cols-2 print:gap-6 print:space-y-0">
-          <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="bg-[#0a0f1c] rounded-lg p-5 border border-slate-800/60 break-inside-avoid page-break-inside-avoid print:bg-slate-50 print:border-slate-300">
-            <h4 class="text-sm font-bold text-slate-200 mb-4 uppercase tracking-wider border-b border-slate-800/60 pb-2 print:text-slate-900 print:border-slate-200">{{title}}</h4>
-            <div class="space-y-3 mb-6">
-              <div class="flex flex-col gap-1">
-                <span class="text-[10px] font-bold text-slate-400 uppercase print:text-slate-600">a. Nombres y Apellidos:</span>
-                <input type="text" class="w-full border-b border-slate-700/80 bg-transparent focus:border-emerald-500 outline-none text-xs py-1 text-slate-200 print:border-slate-300 print:text-slate-900" />
-              </div>
-              <div class="flex flex-col gap-1">
-                <span class="text-[10px] font-bold text-slate-400 uppercase print:text-slate-600">b. C.I:</span>
-                <input type="text" class="w-full border-b border-slate-700/80 bg-transparent focus:border-emerald-500 outline-none text-xs py-1 text-slate-200 print:border-slate-300 print:text-slate-900" />
-              </div>
+        <!-- Section I: Datos Generales -->
+        <fieldset class="win95-outset p-4 mt-2">
+          <legend class="px-2 font-bold bg-win95-bg">I. DATOS GENERALES</legend>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-bold">a. N° de Expediente:</label>
+              <input type="text" v-model="formData.expediente" class="win95-input w-full" />
             </div>
-            <div class="grid grid-cols-3 gap-3">
-              <div class="space-y-1">
-                <div class="aspect-square bg-[#161b2a] border border-slate-700/80 rounded relative overflow-hidden print:bg-emerald-50/50 print:border-emerald-200">
-                  <FileText :size="16" class="text-emerald-500/50 absolute top-1 right-1 print:text-emerald-700" />
-                  <span class="absolute top-1 left-1 text-[8px] text-emerald-500/70 uppercase font-bold print:text-emerald-800">Firma</span>
+            <div class="flex flex-col gap-1">
+              <label class="text-[11px] font-bold">b. N° PRCC:</label>
+              <input type="text" v-model="formData.prcc" class="win95-input w-full" />
+            </div>
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="text-[11px] font-bold">c. Despacho que instruye:</label>
+              <input type="text" v-model="formData.despachoInstruye" class="win95-input w-full" />
+            </div>
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="text-[11px] font-bold">d. Organismo que investiga e instructivo:</label>
+              <input type="text" v-model="formData.organismoInvestiga" class="win95-input w-full" />
+            </div>
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="text-[11px] font-bold">e. Despacho que inicia la custodia:</label>
+              <input type="text" v-model="formData.despachoCustodia" class="win95-input w-full" />
+            </div>
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="text-[11px] font-bold">f. Organismo que custodia:</label>
+              <input type="text" v-model="formData.organismoCustodia" class="win95-input w-full" />
+            </div>
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="text-[11px] font-bold">g. Dirección de Obtención:</label>
+              <input type="text" v-model="formData.direccionObtencion" class="win95-input w-full" />
+            </div>
+            <div class="flex flex-col gap-1 sm:col-span-2">
+              <label class="text-[11px] font-bold">h. Fecha y Hora:</label>
+              <input type="text" v-model="formData.fechaHora" class="win95-input w-full" />
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section II: Formas de Obtención -->
+        <fieldset class="win95-outset p-4 mt-4">
+          <legend class="px-2 font-bold bg-win95-bg">II. FORMAS DE OBTENCIÓN</legend>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div v-for="(label, num) in {'1': 'Técnica', '2': 'Aseguramiento', '3': 'Consignación', '4': 'Derivación'}" :key="num" 
+                 @click="toggleObtencion(num)"
+                 class="flex items-center gap-2 cursor-pointer select-none">
+              <div :class="['w-4 h-4 win95-inset flex items-center justify-center', obtencion[num] ? 'bg-white' : 'bg-win95-highlight']">
+                <div v-if="obtencion[num]" class="w-2 h-2 bg-black"></div>
+              </div>
+              <span class="text-[11px] font-bold">{{num}}. {{label}}</span>
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Section III: Funcionario -->
+        <fieldset class="win95-outset p-4 mt-6">
+          <legend class="px-2 font-bold bg-win95-bg">III. FUNCIONARIO QUE OBTIENE</legend>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-inset bg-win95-bg p-3">
+              <h4 class="text-[11px] font-bold bg-win95-title-bg text-white px-2 mb-3">{{title}}</h4>
+              <div class="space-y-3 mb-4">
+                <div class="flex flex-col gap-1">
+                  <span class="text-[10px] font-bold">a. Nombres y Apellidos:</span>
+                  <input type="text" class="win95-input w-full" />
                 </div>
-                <span class="block text-[9px] text-center text-slate-400 uppercase print:text-slate-600">c. Firma</span>
-              </div>
-              <div class="space-y-1">
-                <div class="aspect-square bg-[#161b2a] border border-slate-700/80 rounded relative overflow-hidden print:bg-emerald-50/50 print:border-emerald-200">
-                  <Fingerprint :size="16" class="text-emerald-500/50 absolute top-1 right-1 print:text-emerald-700" />
-                  <span class="absolute top-1 left-1 text-[8px] text-emerald-500/70 uppercase font-bold print:text-emerald-800">Huella</span>
+                <div class="flex flex-col gap-1">
+                  <span class="text-[10px] font-bold">b. C.I:</span>
+                  <input type="text" class="win95-input w-full" />
                 </div>
-                <span class="block text-[9px] text-center text-slate-400 uppercase leading-tight print:text-slate-600">Pulgar Izq.</span>
               </div>
-              <div class="space-y-1">
-                <div class="aspect-square bg-[#161b2a] border border-slate-700/80 rounded relative overflow-hidden print:bg-emerald-50/50 print:border-emerald-200">
-                  <Fingerprint :size="16" class="text-emerald-500/50 absolute top-1 right-1 print:text-emerald-700" />
-                  <span class="absolute top-1 left-1 text-[8px] text-emerald-500/70 uppercase font-bold print:text-emerald-800">Huella</span>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="space-y-1">
+                  <div class="aspect-square bg-white win95-inset relative flex items-center justify-center">
+                    <span class="text-[8px] text-win95-title-bg opacity-30 font-bold absolute top-1 left-1 italic">SIGNATURE</span>
+                  </div>
+                  <span class="block text-[9px] text-center uppercase">Firma</span>
                 </div>
-                <span class="block text-[9px] text-center text-slate-400 uppercase leading-tight print:text-slate-600">Pulgar Der.</span>
+                <div class="space-y-1">
+                  <div class="aspect-square bg-white win95-inset relative flex items-center justify-center">
+                     <Fingerprint :size="16" class="opacity-10" />
+                  </div>
+                  <span class="block text-[9px] text-center uppercase leading-tight">Pulgar Izq.</span>
+                </div>
+                <div class="space-y-1">
+                  <div class="aspect-square bg-white win95-inset relative flex items-center justify-center">
+                     <Fingerprint :size="16" class="opacity-10" />
+                  </div>
+                  <span class="block text-[9px] text-center uppercase leading-tight">Pulgar Der.</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </fieldset>
 
-    <!-- PAGE 3 -->
-    <div class="w-full max-w-[600px] min-w-[320px] min-h-[33cm] py-[2cm] bg-[#161b2a] shadow-2xl rounded-xl overflow-hidden border border-slate-800/60 print:shadow-none print:border-none print:max-w-none print:w-full print:text-black print:p-0 print:m-0 print:break-after-page flex flex-col">
-      
-      <!-- Section VI: Descripción -->
-      <section class="border-b border-slate-800/60 print:border-slate-300">
-        <div class="bg-[#080d1a] px-6 py-3 print:bg-slate-100">
-          <h3 class="text-slate-100 font-bold text-sm flex items-center gap-2 print:text-black">
-            <ClipboardCheck :size="16" class="text-emerald-400 print:text-black" />
-            VI. DESCRIPCIÓN DE LA EVIDENCIA
-          </h3>
-        </div>
-        <div class="p-0 bg-[#161b2a] print:bg-white">
-          <div v-for="num in 7" :key="num" :class="['flex items-center px-6 py-3 border-b border-slate-800/60 last:border-0 print:border-slate-100', num % 2 === 0 ? 'bg-[#1a202e] print:bg-white' : 'bg-[#0a0f1c] print:bg-slate-50']">
-            <span class="text-xs font-bold text-slate-400 w-8 print:text-slate-600">{{num}}</span>
-            <input type="text" class="flex-1 bg-transparent border-none focus:ring-0 text-sm text-slate-200 print:text-slate-900" placeholder="..." />
-          </div>
-          <div class="p-4 flex justify-end items-center gap-3 bg-[#0a0f1c] border-t border-slate-800/60 print:bg-slate-50 print:border-slate-200">
-            <span class="text-xs font-bold text-slate-400 uppercase print:text-slate-700">(ANEXO A)</span>
-            <div class="w-5 h-5 border border-slate-700/80 rounded-sm bg-[#161b2a] flex items-center justify-center cursor-pointer hover:bg-[#1a202e] transition-colors print:border-slate-400 print:bg-emerald-50 print:hover:bg-emerald-100">
-              <CheckCircle2 :size="12" class="text-emerald-500 print:text-emerald-600" />
+        <!-- Section VI: Descripción -->
+        <fieldset class="win95-outset p-4 mt-6">
+          <legend class="px-2 font-bold bg-win95-bg">VI. DESCRIPCIÓN DE LA EVIDENCIA</legend>
+          <div class="win95-inset bg-white overflow-hidden">
+            <div v-for="num in 7" :key="num" class="flex items-center px-3 py-1 border-b border-win95-highlight last:border-0 hover:bg-win95-highlight">
+              <span class="text-[11px] font-bold text-win95-border-mid w-6">{{num}}</span>
+              <input type="text" class="flex-1 bg-transparent border-none focus:ring-0 text-[11px] py-1" placeholder="Ingrese descripción..." />
             </div>
           </div>
-        </div>
-      </section>
+          <div class="mt-2 flex items-center justify-between">
+            <span class="text-[10px] italic font-bold">Documento: ANEXO A</span>
+            <button class="win95-button flex items-center gap-1 no-print">
+              <CheckCircle2 :size="14" />
+              Validar Evidencia
+            </button>
+          </div>
+        </fieldset>
 
-      <!-- Section V: Transferencia -->
-      <section>
-        <div class="bg-[#080d1a] px-6 py-3 print:bg-slate-100">
-          <h3 class="text-slate-100 font-bold text-sm flex items-center gap-2 print:text-black">
-            <ArrowRightLeft :size="16" class="text-emerald-400 print:text-black" />
-            V. TRANSFERENCIA DE EVIDENCIA
-          </h3>
-        </div>
-        <div class="p-6 space-y-6 bg-[#161b2a] print:bg-white">
-          <div>
-            <h4 class="text-xs font-bold text-slate-200 mb-3 uppercase tracking-wider print:text-slate-900">a. MOTIVO:</h4>
-            <div class="space-y-2 print:grid print:grid-cols-5 print:gap-2 print:space-y-0">
+        <!-- Section V: Transferencia -->
+        <fieldset class="win95-outset p-4 mt-6">
+          <legend class="px-2 font-bold bg-win95-bg">V. TRANSFERENCIA DE EVIDENCIA</legend>
+          
+          <div class="mb-4">
+            <h4 class="text-[11px] font-bold mb-2">a. MOTIVO DE TRASLADO:</h4>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
               <div v-for="(motivo, i) in ['Traslado', 'Peritaje', 'Resguardo', 'Disposición Judicial', 'Disposición Final']" :key="motivo" 
                    @click="toggleMotivo(motivo)"
-                   class="flex items-center gap-2 p-3 bg-[#0a0f1c] rounded border border-slate-800/60 cursor-pointer hover:bg-[#1a202e] transition-colors print:bg-slate-50 print:border-slate-200 print:hover:bg-slate-100">
-                <span class="text-[10px] font-bold text-slate-400 print:text-slate-600">{{i + 1}}.</span>
-                <span class="text-[11px] font-medium text-slate-200 flex-1 print:text-slate-900">{{motivo}}</span>
-                <div :class="['w-4 h-4 border rounded-sm flex items-center justify-center transition-colors print:border-slate-400', motivos[motivo] ? 'bg-emerald-500 border-emerald-600' : 'bg-[#161b2a] border-slate-700/80 print:bg-white print:border-slate-300']">
-                  <Check v-if="motivos[motivo]" :size="10" class="text-white" />
+                   class="flex items-center gap-2 cursor-pointer select-none">
+                <div :class="['w-4 h-4 win95-inset flex items-center justify-center', motivos[motivo] ? 'bg-white' : 'bg-win95-highlight']">
+                  <div v-if="motivos[motivo]" class="w-2 h-2 bg-black"></div>
                 </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="space-y-6 pt-4 print:grid print:grid-cols-2 print:gap-6 print:space-y-0 print:pt-0">
-            <div v-for="title in ['b. ENTREGA', 'c. RECIBE']" :key="title" class="bg-[#0a0f1c] rounded-lg p-5 border border-slate-800/60 break-inside-avoid page-break-inside-avoid print:bg-slate-50 print:border-slate-300">
-              <h4 class="text-sm font-bold text-slate-200 mb-4 uppercase tracking-wider border-b border-slate-800/60 pb-2 print:text-slate-900 print:border-slate-200">{{title}}</h4>
-              <div class="space-y-3 mb-6">
-                <div v-for="label in ['a. Nombres y Apellidos', 'b. Organismo', 'c. Despacho', 'd. C.I./Cred', 'e. Fecha']" :key="label" class="flex flex-col gap-1">
-                  <span class="text-[10px] font-bold text-slate-400 uppercase print:text-slate-600">{{label}}:</span>
-                  <input type="text" class="w-full border-b border-slate-700/80 bg-transparent focus:border-emerald-500 outline-none text-xs py-1 text-slate-200 print:border-slate-300 print:text-slate-900" />
-                </div>
-              </div>
-              <div class="grid grid-cols-3 gap-3">
-                <div class="space-y-1">
-                  <div class="aspect-square bg-[#161b2a] border border-slate-700/80 rounded relative overflow-hidden print:bg-emerald-50/50 print:border-emerald-200">
-                    <FileText :size="16" class="text-emerald-500/50 absolute top-1 right-1 print:text-emerald-700" />
-                    <span class="absolute top-1 left-1 text-[8px] text-emerald-500/70 uppercase font-bold print:text-emerald-800">Firma</span>
-                  </div>
-                  <span class="block text-[9px] text-center text-slate-400 uppercase print:text-slate-600">f. Firma</span>
-                </div>
-                <div class="space-y-1">
-                  <div class="aspect-square bg-[#161b2a] border border-slate-700/80 rounded relative overflow-hidden print:bg-emerald-50/50 print:border-emerald-200">
-                    <Fingerprint :size="16" class="text-emerald-500/50 absolute top-1 right-1 print:text-emerald-700" />
-                    <span class="absolute top-1 left-1 text-[8px] text-emerald-500/70 uppercase font-bold print:text-emerald-800">Huella</span>
-                  </div>
-                  <span class="block text-[9px] text-center text-slate-400 uppercase leading-tight print:text-slate-600">Pulgar Izq.</span>
-                </div>
-                <div class="space-y-1">
-                  <div class="aspect-square bg-[#161b2a] border border-slate-700/80 rounded relative overflow-hidden print:bg-emerald-50/50 print:border-emerald-200">
-                    <Fingerprint :size="16" class="text-emerald-500/50 absolute top-1 right-1 print:text-emerald-700" />
-                    <span class="absolute top-1 left-1 text-[8px] text-emerald-500/70 uppercase font-bold print:text-emerald-800">Huella</span>
-                  </div>
-                  <span class="block text-[9px] text-center text-slate-400 uppercase leading-tight print:text-slate-600">Pulgar Der.</span>
-                </div>
+                <span class="text-[11px]">{{i + 1}}. {{motivo}}</span>
               </div>
             </div>
           </div>
 
-          <div class="mt-8 pt-6 border-t border-slate-800/60 print:border-slate-200">
-            <h4 class="text-xs font-bold text-slate-200 mb-3 uppercase tracking-wider print:text-slate-900">d. OBSERVACIÓN</h4>
-            <div class="space-y-2">
-              <div v-for="n in 3" :key="n" class="h-8 border-b border-slate-800/60 flex items-center print:border-slate-200">
-                <span class="text-[10px] text-slate-400 mr-4 print:text-slate-600">{{n}}</span>
-                <input type="text" class="flex-1 bg-transparent border-none focus:ring-0 text-sm h-full text-slate-200 print:text-slate-900" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div v-for="title in ['b. ENTREGA', 'c. RECIBE']" :key="title" class="win95-inset p-3 bg-win95-bg">
+              <h4 class="text-[11px] font-bold bg-win95-title-bg text-white px-2 mb-3">{{title}}</h4>
+              <div class="space-y-2 mb-4">
+                <div v-for="label in ['Nombres y Apellidos', 'Organismo', 'Despacho', 'C.I./Cred', 'Fecha']" :key="label" class="flex flex-col gap-1">
+                  <span class="text-[10px] font-bold tracking-tight">{{label}}:</span>
+                  <input type="text" class="win95-input w-full" />
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="aspect-square bg-white win95-inset flex items-center justify-center text-[8px] font-bold text-win95-border-mid opacity-30 italic">FIRMA</div>
+                <div class="aspect-square bg-white win95-inset flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                <div class="aspect-square bg-white win95-inset flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
               </div>
             </div>
-            <p class="mt-6 text-[10px] text-slate-400 leading-relaxed italic border-l-2 border-emerald-500 pl-4 print:text-slate-700">
-              Nota: la planilla de Registro de Cadena de Custodia debe permanecer siempre con la evidencia, y sólo en original, desde el instante de su llenado en el lugar de obtención hasta la disposición final de la evidencia.
+          </div>
+
+          <div class="mt-4 pt-4 border-t-2 border-win95-border-mid">
+            <h4 class="text-[11px] font-bold mb-2">d. OBSERVACIONES ADICIONALES:</h4>
+            <textarea class="win95-input w-full h-20 resize-none"></textarea>
+            <p class="mt-4 text-[9px] italic leading-tight text-win95-title-bg font-bold">
+              IMPORTANTE: La planilla de Registro de Cadena de Custodia debe permanecer siempre con la evidencia, y sólo en original, desde el instante de su llenado en el lugar de obtención hasta la disposición final de la evidencia.
             </p>
           </div>
-        </div>
-      </section>
-    </div>
-      
-    <!-- CONTROLS -->
-    <div class="w-full max-w-[600px] min-w-[320px] bg-[#161b2a] shadow-2xl rounded-xl overflow-hidden border border-slate-800/60 print:hidden flex flex-col">
-      <!-- Action Buttons at the bottom -->
-      <div class="p-6 bg-[#080d1a] flex flex-col gap-3 no-print">
-        <button 
-          @click="printDoc"
-          class="w-full flex justify-center items-center gap-2 px-6 py-3 bg-emerald-600 rounded-xl text-sm font-bold text-white hover:bg-emerald-500 transition-all shadow-sm active:scale-95"
-        >
-          <Printer :size="18" />
-          IMPRIMIR FORMULARIO
-        </button>
-        <button 
-          @click="printDoc"
-          class="w-full flex justify-center items-center gap-2 px-6 py-3 bg-[#161b2a] border border-slate-700/80 rounded-xl text-sm font-bold text-slate-300 hover:bg-[#1a202e] hover:text-white transition-all shadow-sm active:scale-95"
-        >
-          <Download :size="18" />
-          EXPORTAR A PDF
-        </button>
+        </fieldset>
       </div>
 
-      <footer class="p-8 flex flex-col items-center justify-center gap-1.5 no-print bg-[#0a0f1c] border-t border-slate-800/60">
-        <div class="flex items-center gap-2">
-          <div class="w-1.5 h-1.5 bg-[#0fa968] rounded-full"></div>
-          <span class="text-slate-200 font-semibold tracking-tight text-sm">sha256.us</span>
+      <!-- StatusBar -->
+      <div class="flex win95-inset mt-4 text-[10px] bg-win95-bg divide-x-2 divide-win95-border-mid overflow-hidden no-print">
+        <div class="px-2 py-0.5 flex-1 truncate italic">Para ayuda, pulse F1</div>
+        <div class="px-2 py-0.5 w-24 text-center">NUM</div>
+        <div class="px-2 py-0.5 w-24 text-center">SCRL</div>
+        <div class="px-2 py-0.5 w-24 text-center uppercase">{{ new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) }}</div>
+      </div>
+    </div>
+
+    <!-- START BAR / CONTROLS -->
+    <div class="w-full fixed bottom-0 left-0 bg-win95-bg border-t-2 border-white win95-outset z-50 p-1 flex items-center justify-end no-print">
+      <div class="flex items-center gap-2">
+        <button 
+          @click="printDoc"
+          class="win95-button flex items-center gap-2 text-[11px]"
+        >
+          <Printer :size="16" />
+          Imprimir Formulario
+        </button>
+        <div class="win95-inset px-2 py-0.5 bg-win95-bg text-[11px] flex items-center gap-2 ml-2">
+          <CheckCircle2 :size="12" class="text-win95-text" />
+          <span>Sistema Listo</span>
         </div>
-        <p class="text-slate-500 text-[10px] font-mono uppercase tracking-widest">
-          Laboratorio Informático Forense
-        </p>
-      </footer>
+      </div>
     </div>
   </div>
 </template>
