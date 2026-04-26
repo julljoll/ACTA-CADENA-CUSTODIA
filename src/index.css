@@ -12,6 +12,8 @@
     font-size: 12px;
     margin: 0;
     padding: 0;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 
@@ -19,16 +21,22 @@
   @apply bg-[#c0c0c0];
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .win95-sunken {
   @apply bg-white;
   border: 2px solid;
   border-color: #808080 #fff #fff #808080;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .win95-titlebar {
   @apply bg-[#000080] text-white px-2 py-0.5 font-bold flex items-center justify-between select-none;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .win95-button {
@@ -36,6 +44,8 @@
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
   min-width: 75px;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .win95-button:active {
@@ -47,39 +57,33 @@
   @apply mb-6 p-4 relative bg-[#c0c0c0];
   border: 2px solid;
   border-color: #fff #808080 #808080 #fff;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 .section-label {
   @apply absolute -top-2.5 left-3 px-1 font-bold bg-[#c0c0c0] text-[12px];
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
 }
 
 @media print {
   @page {
     size: letter;
-    margin: 0.75in;
+    margin: 0;
   }
   body {
-    background: white !important;
-    color: black !important;
+    background: #008080 !important;
   }
   .no-print {
     display: none !important;
   }
-  .win95-raised {
-    background: white !important;
-    border: 1pt solid #ccc !important;
-    padding: 10pt !important;
-  }
-  .win95-sunken {
-    border: none !important;
-    border-bottom: 1pt solid black !important;
-  }
-  .section-label {
-    text-transform: uppercase;
-    font-size: 9px;
-    top: -7pt;
-  }
   .win95-titlebar {
     display: none !important;
+  }
+  /* Ensure the container fits the page */
+  .min-h-screen {
+    min-height: auto !important;
+    padding: 0.5in !important;
   }
 }

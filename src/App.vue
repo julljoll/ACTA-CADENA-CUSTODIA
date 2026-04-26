@@ -1,6 +1,6 @@
 <template>
-  <div class="min-h-screen bg-[#008080] p-4 sm:p-8 flex items-center justify-center print:bg-white print:p-0">
-    <div class="win95-raised w-full max-w-[8.5in] p-[2px] shadow-[1px_1px_#000] print:border-none print:shadow-none print:max-w-none print:w-full">
+  <div class="min-h-screen bg-[#008080] p-4 sm:p-8 flex items-center justify-center print:p-8">
+    <div class="win95-raised w-full max-w-[8.5in] p-[2px] shadow-[1px_1px_#000] print:shadow-none print:w-full">
       <!-- Title Bar -->
       <div class="win95-titlebar no-print">
         <div class="flex items-center gap-2">
@@ -13,18 +13,18 @@
           <button class="win95-button !min-w-0 w-4 h-4 p-0 flex items-center justify-center text-[10px]">X</button>
         </div>
       </div>      <!-- Main Content -->
-      <div class="bg-[#c0c0c0] p-4 text-black print:p-0">
+      <div class="bg-[#c0c0c0] p-4 text-black print:p-4">
         
         <!-- PAGE 1: Header + I + II -->
-        <div class="print:break-after-page print:min-h-[10in]">
+        <div class="print:break-after-page print:min-h-[9.5in]">
           <!-- Header -->
-          <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b-2 border-white pb-4 print:border-b-2 print:border-black">
+          <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b-2 border-white pb-4 print:border-black">
             <div class="flex flex-col items-start">
-              <span class="text-4xl font-black tracking-tighter text-[#161b2a] print:text-black">SHA256.US</span>
+              <span class="text-4xl font-black tracking-tighter text-[#161b2a]">SHA256.US</span>
               <span class="text-[8px] font-bold text-[#000080] uppercase tracking-tight mt-0.5 max-w-[200px] leading-tight">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</span>
             </div>
             <div class="text-right">
-              <h1 class="text-xl font-bold bg-[#000080] text-white px-4 py-1 inline-block uppercase tracking-tighter print:bg-transparent print:text-black">
+              <h1 class="text-xl font-bold bg-[#000080] text-white px-4 py-1 inline-block uppercase tracking-tighter print:text-black print:bg-transparent">
                 CADENA DE CUSTODIA (PRCC)
               </h1>
               <p class="text-[10px] mt-1 font-bold uppercase tracking-widest">Planilla de Registro de Evidencias</p>
@@ -75,11 +75,17 @@
         </div>
 
         <!-- PAGE 2: Section III -->
-        <div class="print:break-after-page print:min-h-[10.5in]">
+        <div class="print:break-after-page print:min-h-[10in]">
+          <!-- Minimal Header for Page 2 -->
+          <div class="hidden print:flex items-center justify-between mb-6 border-b border-gray-400 pb-2">
+            <span class="text-xl font-black text-[#161b2a]">SHA256.US</span>
+            <span class="text-[10px] font-bold">REGISTRO DE CADENA DE CUSTODIA - SECCIÓN III</span>
+          </div>
+
           <div class="section-group">
             <span class="section-label">III. FUNCIONARIO QUE OBTIENE</span>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-raised p-4 print:p-2">
+              <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-raised p-4">
                 <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
                 <div class="space-y-3 mb-4">
                   <div class="space-y-1">
@@ -106,7 +112,13 @@
         </div>
 
         <!-- PAGE 3: Section VI + V -->
-        <div>
+        <div class="print:min-h-[10in]">
+          <!-- Minimal Header for Page 3 -->
+          <div class="hidden print:flex items-center justify-between mb-6 border-b border-gray-400 pb-2">
+            <span class="text-xl font-black text-[#161b2a]">SHA256.US</span>
+            <span class="text-[10px] font-bold">REGISTRO DE CADENA DE CUSTODIA - SECCIONES VI, V</span>
+          </div>
+
           <!-- Section VI -->
           <div class="section-group">
             <span class="section-label">VI. DESCRIPCIÓN DE LA EVIDENCIA</span>
@@ -131,7 +143,7 @@
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div v-for="title in ['ENTREGA', 'RECIBE']" :key="title" class="win95-raised p-4 print:p-2">
+              <div v-for="title in ['ENTREGA', 'RECIBE']" :key="title" class="win95-raised p-4">
                 <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
                 <div class="space-y-2 mb-4">
                   <div class="space-y-1">
