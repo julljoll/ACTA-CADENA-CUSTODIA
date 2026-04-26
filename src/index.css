@@ -1,102 +1,85 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap');
+@import "https://fonts.googleapis.com/css2?family=Tahoma:wght@400;700&display=swap";
 @import "tailwindcss";
 
 @theme {
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
-  --font-win95: "MS Sans Serif", Tahoma, Arial, sans-serif;
-  
-  --color-win95-bg: #c0c0c0;
-  --color-win95-window: #c0c0c0;
-  --color-win95-title-bg: #000080;
-  --color-win95-title-text: #ffffff;
-  --color-win95-text: #000000;
-  --color-win95-text-disabled: #808080;
-  --color-win95-border-light: #ffffff;
-  --color-win95-border-mid: #808080;
-  --color-win95-border-dark: #000000;
-  --color-win95-btn-face: #c0c0c0;
-  --color-win95-input-bg: #ffffff;
-  --color-win95-highlight: #dfdfdf;
-
-  --shadow-win95-outset: 1px 1px 0 #000000;
-  --border-width-win95: 2px;
+  --font-sans: "Tahoma", "Arial", sans-serif;
+  --font-mono: "Courier New", ui-monospace, SFMono-Regular, monospace;
 }
 
 @layer base {
   body {
-    @apply bg-win95-bg text-win95-text font-win95;
+    @apply bg-[#008080] text-black font-sans;
     font-size: 12px;
+    margin: 0;
+    padding: 0;
   }
 }
 
-.win95-window {
-  @apply bg-win95-window p-[2px];
-  border: 2px outset #c0c0c0;
-  border-color: #ffffff #808080 #808080 #ffffff;
-  box-shadow: 1px 1px 0 #000000;
+.win95-raised {
+  @apply bg-[#c0c0c0];
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+}
+
+.win95-sunken {
+  @apply bg-white;
+  border: 2px solid;
+  border-color: #808080 #fff #fff #808080;
 }
 
 .win95-titlebar {
-  @apply bg-win95-title-bg text-win95-title-text px-1 py-0.5 font-bold flex items-center justify-between select-none;
+  @apply bg-[#000080] text-white px-2 py-0.5 font-bold flex items-center justify-between select-none;
 }
 
 .win95-button {
-  @apply bg-win95-btn-face inline-flex items-center justify-center px-3 py-1 cursor-pointer font-win95 text-[12px];
-  border: 2px outset;
-  border-color: #ffffff #808080 #808080 #ffffff;
+  @apply bg-[#c0c0c0] px-3 py-1 cursor-pointer font-bold text-center flex items-center justify-center;
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
+  min-width: 75px;
 }
 
 .win95-button:active {
-  border: 2px inset;
-  border-color: #808080 #ffffff #ffffff #808080;
-  padding: 5px 11px 3px 13px;
+  padding: 5px 3px 3px 5px;
+  border-color: #808080 #fff #fff #808080;
 }
 
-.win95-input {
-  @apply bg-win95-input-bg px-1 py-0.5 font-win95 text-[12px] outline-none;
-  border: 2px inset;
-  border-color: #808080 #ffffff #ffffff #808080;
+.section-group {
+  @apply mb-6 p-4 relative bg-[#c0c0c0];
+  border: 2px solid;
+  border-color: #fff #808080 #808080 #fff;
 }
 
-.win95-inset {
-  border: 2px inset;
-  border-color: #808080 #ffffff #ffffff #808080;
-}
-
-.win95-outset {
-  border: 2px outset;
-  border-color: #ffffff #808080 #808080 #ffffff;
-}
-
-.document-shadow {
-  box-shadow: 0 0 40px rgba(0,0,0,0.1);
+.section-label {
+  @apply absolute -top-2.5 left-3 px-1 font-bold bg-[#c0c0c0] text-[12px];
 }
 
 @media print {
   @page {
-    margin: 1.5cm;
     size: letter;
+    margin: 0.75in;
   }
   body {
-    margin: 0;
-    padding: 0;
-    background: white;
-    width: 100%;
+    background: white !important;
+    color: black !important;
   }
   .no-print {
     display: none !important;
   }
-  .document-shadow {
-    box-shadow: none !important;
-    border: 1px solid #e2e8f0 !important;
+  .win95-raised {
+    background: white !important;
+    border: 1pt solid #ccc !important;
+    padding: 10pt !important;
   }
-  .print-break-inside-avoid {
-    break-inside: avoid;
-    page-break-inside: avoid;
+  .win95-sunken {
+    border: none !important;
+    border-bottom: 1pt solid black !important;
   }
-  section, fieldset {
-    break-inside: avoid;
-    page-break-inside: avoid;
-    margin-bottom: 1rem;
+  .section-label {
+    text-transform: uppercase;
+    font-size: 9px;
+    top: -7pt;
+  }
+  .win95-titlebar {
+    display: none !important;
   }
 }
