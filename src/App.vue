@@ -15,8 +15,8 @@
       </div>      <!-- Main Content -->
       <div class="bg-[#c0c0c0] p-4 text-black print:p-4">
         
-        <!-- PAGE 1: Header + I + II -->
-        <div class="print:break-after-page print:min-h-[9.5in]">
+        <!-- Flow Container for Print -->
+        <div>
           <!-- Screen Header -->
           <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b-2 border-white pb-4 print:hidden">
             <div class="flex flex-col items-start gap-1">
@@ -32,25 +32,10 @@
             </div>
           </div>
 
-          <!-- PRINT HEADER (matches PDF) -->
-          <div class="hidden print:flex w-full justify-between items-start mb-8 pb-4 border-b border-gray-200">
-            <div class="flex flex-col">
-              <div class="flex items-stretch gap-3 mb-6">
-                <div class="w-1.5 bg-black"></div>
-                <div class="flex flex-col justify-center gap-1">
-                  <span class="text-[10px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO.</span>
-                  <span class="text-2xl font-black tracking-widest uppercase">EXP - {{ formData.expediente || '_______________' }}</span>
-                </div>
-              </div>
-              <h1 class="text-2xl font-bold tracking-tight mb-2">PLANILLA DE REGISTRO DE CADENA DE CUSTODIA (PRCC)</h1>
-              <h2 class="text-[11px] font-bold tracking-widest uppercase mb-1">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</h2>
-              <p class="text-[10px] text-gray-700 uppercase max-w-[500px] leading-relaxed">
-                Avenida 6, con calle 7, Edificio Mercantil La Ceiba, primer piso, oficina Nº 8, Quibor, Municipio Jiménez del Estado Lara.
-              </p>
-            </div>
-            <div class="flex flex-col items-end">
-              <span class="text-4xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
-              <span class="text-[12px] text-gray-500 tracking-wide mt-1">laboratorio forense</span>
+          <!-- PRINT HEADER (matches simple green bar) -->
+          <div class="hidden print:block w-full mb-1">
+            <div class="print-header-green py-1.5 font-bold uppercase tracking-widest text-[12px] text-center w-full">
+              PLANILLA DE REGISTRO DE CADENA DE CUSTODIA (PRCC)
             </div>
           </div>
 
@@ -103,23 +88,17 @@
           </div>
         </div>
 
-        <!-- PAGE 2: Section III -->
-        <div class="print:break-after-page print:min-h-[10in]">
-          <!-- Minimal Header for Page 2 -->
-          <div class="hidden print:flex w-full justify-between items-end mb-6 pb-2 border-b border-gray-200">
-            <span class="text-[10px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO. EXP - {{ formData.expediente || '_______________' }}</span>
-            <span class="text-2xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
-          </div>
-
+        <!-- Flow Continuation -->
+        <div>
           <div class="section-group">
             <span class="section-label">III. FUNCIONARIO QUE OBTIENE LA EVIDENCIA</span>
             <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
               III. FUNCIONARIO QUE OBTIENE LA EVIDENCIA
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-raised p-4">
-                <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
-                <div class="space-y-3 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:gap-4">
+              <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-raised p-4 print-bg-gray print:p-3">
+                <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold print:bg-transparent print:text-black print:px-0 print:mb-2 print:text-lg">{{title}}</h4>
+                <div class="space-y-3 mb-4 print:mb-2">
                   <div class="space-y-1">
                     <span class="text-[10px] font-bold">a. Nombres y Apellidos:</span>
                     <div class="win95-sunken px-2 py-0.5">
@@ -152,14 +131,8 @@
           </div>
         </div>
 
-        <!-- PAGE 3: Section VI + V -->
-        <div class="print:min-h-[10in]">
-          <!-- Minimal Header for Page 3 -->
-          <div class="hidden print:flex w-full justify-between items-end mb-6 pb-2 border-b border-gray-200">
-            <span class="text-[10px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO. EXP - {{ formData.expediente || '_______________' }}</span>
-            <span class="text-2xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
-          </div>
-
+        <!-- Flow Continuation -->
+        <div>
           <!-- Section VI -->
           <div class="section-group">
             <span class="section-label">VI. DESCRIPCIÓN DE LA EVIDENCIA</span>
@@ -201,10 +174,10 @@
                 </div>
               </div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div v-for="(title, idx) in ['B. ENTREGA', 'C. RECIBE']" :key="title" class="win95-raised p-4">
-                <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
-                <div class="space-y-2 mb-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 print:gap-4">
+              <div v-for="(title, idx) in ['B. ENTREGA', 'C. RECIBE']" :key="title" class="win95-raised p-4 print-bg-gray print:p-3">
+                <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold print:bg-transparent print:text-black print:px-0 print:mb-2 print:text-lg">{{title}}</h4>
+                <div class="space-y-2 mb-4 print:mb-2">
                   <div class="space-y-1">
                     <span class="text-[10px] font-bold">a. Nombres y Apellidos:</span>
                     <div class="win95-sunken px-2">
@@ -255,9 +228,9 @@
           </div>
           
           <!-- Section D -->
-          <div class="section-group">
+          <div class="section-group !border-none !mb-0">
             <span class="section-label">D. OBSERVACIÓN</span>
-            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+            <div class="hidden print:block font-bold text-[12px] mb-2 text-left uppercase text-black">
               D. OBSERVACIÓN
             </div>
             <div class="win95-sunken mb-4">

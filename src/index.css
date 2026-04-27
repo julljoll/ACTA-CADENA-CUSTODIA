@@ -129,14 +129,37 @@
     background: transparent !important;
   }
   .bg-\[\#000080\] {
-    background: #0d1b2a !important; /* using a dark tone for headers */
+    background: #0f172a !important; /* using a dark slate tone for headers */
+    color: white !important;
+  }
+  
+  .print-header-green {
+    background: #0f9d58 !important;
     color: white !important;
   }
   
   .print-box {
-    border: 1px solid black !important;
-    background: transparent !important;
+    border: 1px solid #1f2937 !important;
+    background: #e5e7eb !important; /* light grayish background for print boxes */
     border-radius: 2px !important;
     box-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
+  
+  .print-bg-gray {
+    background: #f4f4f5 !important; /* zinc-100 */
+    border-radius: 8px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  
+  /* Reduce spacing to fit on letter page */
+  .p-4 { padding: 4px !important; }
+  .mb-6 { margin-bottom: 8px !important; }
+  .mb-8 { margin-bottom: 8px !important; }
+  .gap-6 { gap: 8px !important; }
+  .gap-4 { gap: 6px !important; }
+  .py-1\.5 { padding-top: 4px !important; padding-bottom: 4px !important; }
+  .mb-4 { margin-bottom: 4px !important; }
 }
