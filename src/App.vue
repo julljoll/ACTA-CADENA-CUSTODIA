@@ -39,8 +39,8 @@
                 'a. N° de Expediente': { key: 'expediente', placeholder: 'P.ej: MP-215-2023', type: 'text' },
                 'b. N° PRCC': { key: 'prcc', placeholder: 'P.ej: 0001', type: 'text' },
                 'c. Despacho que instruye': { key: 'despachoInstruye', placeholder: 'P.ej: Fiscalía 23°', type: 'text' },
-                'd. Organismo que investiga': { key: 'organismoInvestiga', placeholder: 'P.ej: CICPC', type: 'text' },
-                'e. Despacho que inicia custodia': { key: 'despachoCustodia', placeholder: 'P.ej: Div. Delitos Informáticos', type: 'text' },
+                'd. Organismo que investiga e instructivo': { key: 'organismoInvestiga', placeholder: 'P.ej: CICPC', type: 'text' },
+                'e. Despacho que inicia la custodia': { key: 'despachoCustodia', placeholder: 'P.ej: Div. Delitos Informáticos', type: 'text' },
                 'f. Organismo que custodia': { key: 'organismoCustodia', placeholder: 'P.ej: SEBIN', type: 'text' },
                 'g. Dirección de Obtención': { key: 'direccionObtencion', placeholder: 'Dirección exacta del sitio', type: 'text' },
                 'h. Fecha y Hora': { key: 'fechaHora', placeholder: '', type: 'datetime-local' }
@@ -60,7 +60,7 @@
 
           <!-- Section II -->
           <div class="section-group">
-            <span class="section-label">II. FORMA DE OBTENCIÓN</span>
+            <span class="section-label">II. FORMAS DE OBTENCIÓN DE LA EVIDENCIA</span>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div v-for="(label, num) in {'1': 'Técnica', '2': 'Aseguramiento', '3': 'Consignación', '4': 'Derivación'}" :key="num" 
                   @click="toggleObtencion(num)"
@@ -83,28 +83,37 @@
           </div>
 
           <div class="section-group">
-            <span class="section-label">III. FUNCIONARIO QUE OBTIENE</span>
+            <span class="section-label">III. FUNCIONARIO QUE OBTIENE LA EVIDENCIA</span>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-raised p-4">
                 <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
                 <div class="space-y-3 mb-4">
                   <div class="space-y-1">
-                    <span class="text-[10px] font-bold">Nombres y Apellidos:</span>
+                    <span class="text-[10px] font-bold">a. Nombres y Apellidos:</span>
                     <div class="win95-sunken px-2 py-0.5">
                       <input type="text" placeholder="P.ej: Juan Pérez" class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
                     </div>
                   </div>
                   <div class="space-y-1">
-                    <span class="text-[10px] font-bold">C.I.:</span>
+                    <span class="text-[10px] font-bold">b. C.I.:</span>
                     <div class="win95-sunken px-2 py-0.5">
                       <input type="text" placeholder="P.ej: V-12.345.678" class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
                     </div>
                   </div>
                 </div>
                 <div class="grid grid-cols-3 gap-2">
-                  <div class="win95-sunken h-20 flex items-center justify-center text-[10px] text-gray-400 italic">Firma</div>
-                  <div class="win95-sunken h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
-                  <div class="win95-sunken h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                  <div class="space-y-1">
+                    <div class="win95-sunken h-20 flex items-center justify-center"></div>
+                    <span class="block text-[8px] italic">c. Firma</span>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="win95-sunken h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <span class="block text-[8px] italic">Pulgar Izquierdo</span>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="win95-sunken h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <span class="block text-[8px] italic">Pulgar Derecho</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -122,10 +131,16 @@
           <!-- Section VI -->
           <div class="section-group">
             <span class="section-label">VI. DESCRIPCIÓN DE LA EVIDENCIA</span>
-            <div class="win95-sunken">
-              <div v-for="n in 12" :key="n" class="border-b border-gray-300 last:border-0 flex items-center px-4 py-1">
+            <div class="win95-sunken relative pb-6">
+              <div v-for="n in 7" :key="n" :class="['border-b border-gray-300 last:border-0 flex items-center px-4 py-1', n % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
                 <span class="w-8 font-bold text-gray-500">{{n}}</span>
                 <input type="text" placeholder="Marca, Modelo, Serial, Color, Estado..." class="flex-1 outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
+              </div>
+              <div class="absolute bottom-1 right-2 flex items-center gap-2">
+                <span class="text-[10px] font-bold uppercase">(Anexo A)</span>
+                <div class="w-4 h-4 win95-sunken bg-white border cursor-pointer flex items-center justify-center">
+                  <!-- Checkbox area, user can click or mark -->
+                </div>
               </div>
             </div>
           </div>
@@ -133,44 +148,88 @@
           <!-- Section V -->
           <div class="section-group">
             <span class="section-label">V. TRANSFERENCIA DE EVIDENCIA</span>
-            <div class="mb-4">
-              <label class="label-text">MOTIVO:</label>
+            <div class="mb-4 space-y-2">
+              <label class="label-text">a. MOTIVO:</label>
               <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
-                <div v-for="motivo in ['Traslado', 'Peritaje', 'Resguardo', 'Judicial', 'Final']" :key="motivo" disabled class="flex items-center gap-2 opacity-50">
-                  <div class="w-4 h-4 win95-sunken"></div>
-                  <span class="text-[11px]">{{motivo}}</span>
+                <div v-for="(motivo, i) in ['Traslado', 'Peritaje', 'Resguardo', 'Disposición Judicial', 'Disposición Final']" :key="motivo" class="flex items-center gap-2">
+                  <div class="w-4 h-4 win95-sunken bg-white"></div>
+                  <span class="text-[11px] font-bold">{{i+1}}. {{motivo}}</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2 mt-2">
+                <label class="text-[10px] font-bold">Fecha y Hora:</label>
+                <div class="win95-sunken px-2 py-0.5 w-48">
+                  <input type="datetime-local" class="w-full outline-none bg-transparent text-[11px]" />
                 </div>
               </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div v-for="title in ['ENTREGA', 'RECIBE']" :key="title" class="win95-raised p-4">
+              <div v-for="(title, idx) in ['B. ENTREGA', 'C. RECIBE']" :key="title" class="win95-raised p-4">
                 <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
                 <div class="space-y-2 mb-4">
                   <div class="space-y-1">
-                    <span class="text-[10px] font-bold">Nombres:</span>
+                    <span class="text-[10px] font-bold">a. Nombres y Apellidos:</span>
                     <div class="win95-sunken px-2">
-                      <input type="text" placeholder="P.ej: Pedro Rojas" class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
+                      <input type="text" placeholder="Nombres y apellidos completos..." class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
                     </div>
                   </div>
                   <div class="space-y-1">
-                    <span class="text-[10px] font-bold">Organismo:</span>
+                    <span class="text-[10px] font-bold">b. Organismo:</span>
                     <div class="win95-sunken px-2">
-                      <input type="text" placeholder="P.ej: Cuerpo de Investigaciones" class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
+                      <input type="text" placeholder="Ej: CICPC..." class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
                     </div>
                   </div>
                   <div class="space-y-1">
-                    <span class="text-[10px] font-bold">Fecha:</span>
+                    <span class="text-[10px] font-bold">c. Despacho:</span>
                     <div class="win95-sunken px-2">
-                      <input type="text" placeholder="DD/MM/AAAA" class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
+                      <input type="text" placeholder="Despacho o división..." class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
+                    </div>
+                  </div>
+                  <div class="space-y-1">
+                    <span class="text-[10px] font-bold">d. C.I./Cred:</span>
+                    <div class="win95-sunken px-2">
+                      <input type="text" placeholder="Cédula o credencial..." class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
+                    </div>
+                  </div>
+                  <div class="space-y-1">
+                    <span class="text-[10px] font-bold">e. Fecha:</span>
+                    <div class="win95-sunken px-2">
+                      <input type="date" class="w-full outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
                     </div>
                   </div>
                 </div>
                 <div class="grid grid-cols-3 gap-2">
-                  <div class="win95-sunken h-16 flex items-center justify-center text-[8px] italic">Firma</div>
-                  <div class="win95-sunken h-16"></div>
-                  <div class="win95-sunken h-16"></div>
+                  <div class="space-y-1">
+                    <div class="win95-sunken h-16 flex items-center justify-center"></div>
+                    <span class="block text-[8px] italic">f. Firma</span>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="win95-sunken h-16 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <span class="block text-[8px] italic">Pulgar Izquierdo</span>
+                  </div>
+                  <div class="space-y-1">
+                    <div class="win95-sunken h-16 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <span class="block text-[8px] italic">Pulgar Derecho</span>
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+          
+          <!-- Section D -->
+          <div class="section-group">
+            <span class="section-label">D. OBSERVACIÓN</span>
+            <div class="win95-sunken mb-4">
+              <div v-for="n in 7" :key="n" :class="['border-b border-gray-300 last:border-0 flex items-center px-4 py-1', n % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
+                <span class="w-8 font-bold text-gray-500">{{n}}</span>
+                <input type="text" class="flex-1 outline-none bg-transparent text-[11px]" />
+              </div>
+            </div>
+            <div class="flex items-start gap-2 select-none">
+              <div class="w-4 h-4 win95-sunken bg-white border cursor-pointer mt-0.5 flex-shrink-0 flex items-center justify-center"></div>
+              <span class="text-[9px] leading-tight font-bold text-gray-700">
+                Nota: la planilla de Registro de Cadena de Custodia debe permanecer siempre con la evidencia, y sólo en original, desde el instante de su llenado en el lugar de obtención hasta la disposición final de la evidencia.
+              </span>
             </div>
           </div>
         </div>
