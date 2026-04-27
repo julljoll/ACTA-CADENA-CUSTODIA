@@ -17,23 +17,45 @@
         
         <!-- PAGE 1: Header + I + II -->
         <div class="print:break-after-page print:min-h-[9.5in]">
-          <!-- Header -->
-          <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b-2 border-white pb-4 print:border-black">
+          <!-- Screen Header -->
+          <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b-2 border-white pb-4 print:hidden">
             <div class="flex flex-col items-start">
               <span class="text-4xl font-black tracking-tighter text-[#161b2a]">SHA256.US</span>
               <span class="text-[8px] font-bold text-[#000080] uppercase tracking-tight mt-0.5 max-w-[200px] leading-tight">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</span>
             </div>
             <div class="text-right">
-              <h1 class="text-xl font-bold bg-[#000080] text-white px-4 py-1 inline-block uppercase tracking-tighter print:text-black print:bg-transparent">
+              <h1 class="text-xl font-bold bg-[#000080] text-white px-4 py-1 inline-block uppercase tracking-tighter">
                 CADENA DE CUSTODIA (PRCC)
               </h1>
               <p class="text-[10px] mt-1 font-bold uppercase tracking-widest">Planilla de Registro de Evidencias</p>
             </div>
           </div>
 
+          <!-- PRINT HEADER (matches PDF) -->
+          <div class="hidden print:flex w-full justify-between items-start mb-8 pb-4 border-b border-gray-200">
+            <div class="flex flex-col">
+              <div class="flex items-stretch gap-3 mb-6">
+                <div class="w-1.5 bg-black"></div>
+                <div class="flex flex-col justify-center gap-1">
+                  <span class="text-[10px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO.</span>
+                  <span class="text-2xl font-black tracking-widest uppercase">EXP - {{ formData.expediente || '_______________' }}</span>
+                </div>
+              </div>
+              <h1 class="text-2xl font-bold tracking-tight mb-2">PLANILLA DE REGISTRO DE CADENA DE CUSTODIA (PRCC)</h1>
+              <h2 class="text-[11px] font-bold tracking-widest uppercase">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</h2>
+            </div>
+            <div class="flex flex-col items-end">
+              <span class="text-4xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
+              <span class="text-[12px] text-gray-500 tracking-wide mt-1">laboratorio forense</span>
+            </div>
+          </div>
+
           <!-- Section I -->
           <div class="section-group">
             <span class="section-label">I. DATOS GENERALES</span>
+            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+              I. DATOS GENERALES
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
               <div v-for="(field, label) in {
                 'a. N° de Expediente': { key: 'expediente', placeholder: 'P.ej: MP-215-2023', type: 'text' },
@@ -45,13 +67,13 @@
                 'g. Dirección de Obtención': { key: 'direccionObtencion', placeholder: 'Dirección exacta del sitio', type: 'text' },
                 'h. Fecha y Hora': { key: 'fechaHora', placeholder: '', type: 'datetime-local' }
               }" :key="label" class="space-y-1">
-                <label class="label-text">{{label}}:</label>
-                <div class="win95-sunken px-2 py-1">
+                <label class="label-text print:text-[9px] print:font-bold print:uppercase print:tracking-wider print:text-gray-600">{{label}}</label>
+                <div class="win95-sunken px-2 py-1 print:px-0">
                   <input 
                     :type="field.type" 
                     v-model="formData[field.key]" 
                     :placeholder="field.placeholder" 
-                    class="w-full outline-none bg-transparent placeholder:text-gray-400 placeholder:italic text-[11px]" 
+                    class="w-full outline-none bg-transparent placeholder:text-gray-400 placeholder:italic text-[11px] print:font-bold print:text-[13px]" 
                   />
                 </div>
               </div>
@@ -61,14 +83,17 @@
           <!-- Section II -->
           <div class="section-group">
             <span class="section-label">II. FORMAS DE OBTENCIÓN DE LA EVIDENCIA</span>
+            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+              II. FORMAS DE OBTENCIÓN DE LA EVIDENCIA
+            </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div v-for="(label, num) in {'1': 'Técnica', '2': 'Aseguramiento', '3': 'Consignación', '4': 'Derivación'}" :key="num" 
                   @click="toggleObtencion(num)"
                   class="flex items-center gap-2 cursor-pointer select-none">
-                <div :class="['w-4 h-4 win95-sunken flex items-center justify-center', obtencion[num] ? 'bg-white' : 'bg-gray-100']">
-                  <div v-if="obtencion[num]" class="w-2 h-2 bg-black"></div>
+                <span class="font-bold print:text-[11px]">{{num}}. {{label}}</span>
+                <div :class="['w-4 h-4 win95-sunken print-checkbox flex items-center justify-center', obtencion[num] ? 'bg-white' : 'bg-gray-100']">
+                  <div v-if="obtencion[num]" class="w-2 h-2 bg-black flex-shrink-0"></div>
                 </div>
-                <span class="font-bold">{{num}}. {{label}}</span>
               </div>
             </div>
           </div>
@@ -77,13 +102,16 @@
         <!-- PAGE 2: Section III -->
         <div class="print:break-after-page print:min-h-[10in]">
           <!-- Minimal Header for Page 2 -->
-          <div class="hidden print:flex items-center justify-between mb-6 border-b border-gray-400 pb-2">
-            <span class="text-xl font-black text-[#161b2a]">SHA256.US</span>
-            <span class="text-[10px] font-bold">REGISTRO DE CADENA DE CUSTODIA - SECCIÓN III</span>
+          <div class="hidden print:flex w-full justify-between items-end mb-6 pb-2 border-b border-gray-200">
+            <span class="text-[10px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO. EXP - {{ formData.expediente || '_______________' }}</span>
+            <span class="text-2xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
           </div>
 
           <div class="section-group">
             <span class="section-label">III. FUNCIONARIO QUE OBTIENE LA EVIDENCIA</span>
+            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+              III. FUNCIONARIO QUE OBTIENE LA EVIDENCIA
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div v-for="title in ['PROTECCIÓN', 'OBSERVACIÓN PRELIMINAR', 'FIJACIÓN', 'COLECCIÓN']" :key="title" class="win95-raised p-4">
                 <h4 class="bg-[#000080] text-white px-2 mb-4 font-bold">{{title}}</h4>
@@ -103,15 +131,15 @@
                 </div>
                 <div class="grid grid-cols-3 gap-2">
                   <div class="space-y-1">
-                    <div class="win95-sunken h-20 flex items-center justify-center"></div>
+                    <div class="win95-sunken print-box h-20 flex items-center justify-center"></div>
                     <span class="block text-[8px] italic">c. Firma</span>
                   </div>
                   <div class="space-y-1">
-                    <div class="win95-sunken h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <div class="win95-sunken print-box h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
                     <span class="block text-[8px] italic">Pulgar Izquierdo</span>
                   </div>
                   <div class="space-y-1">
-                    <div class="win95-sunken h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <div class="win95-sunken print-box h-20 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
                     <span class="block text-[8px] italic">Pulgar Derecho</span>
                   </div>
                 </div>
@@ -123,14 +151,17 @@
         <!-- PAGE 3: Section VI + V -->
         <div class="print:min-h-[10in]">
           <!-- Minimal Header for Page 3 -->
-          <div class="hidden print:flex items-center justify-between mb-6 border-b border-gray-400 pb-2">
-            <span class="text-xl font-black text-[#161b2a]">SHA256.US</span>
-            <span class="text-[10px] font-bold">REGISTRO DE CADENA DE CUSTODIA - SECCIONES VI, V</span>
+          <div class="hidden print:flex w-full justify-between items-end mb-6 pb-2 border-b border-gray-200">
+            <span class="text-[10px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO. EXP - {{ formData.expediente || '_______________' }}</span>
+            <span class="text-2xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
           </div>
 
           <!-- Section VI -->
           <div class="section-group">
             <span class="section-label">VI. DESCRIPCIÓN DE LA EVIDENCIA</span>
+            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+              VI. DESCRIPCIÓN DE LA EVIDENCIA
+            </div>
             <div class="win95-sunken relative pb-6">
               <div v-for="n in 7" :key="n" :class="['border-b border-gray-300 last:border-0 flex items-center px-4 py-1', n % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
                 <span class="w-8 font-bold text-gray-500">{{n}}</span>
@@ -138,7 +169,7 @@
               </div>
               <div class="absolute bottom-1 right-2 flex items-center gap-2">
                 <span class="text-[10px] font-bold uppercase">(Anexo A)</span>
-                <div class="w-4 h-4 win95-sunken bg-white border cursor-pointer flex items-center justify-center">
+                <div class="w-4 h-4 win95-sunken print-checkbox bg-white border cursor-pointer flex items-center justify-center">
                   <!-- Checkbox area, user can click or mark -->
                 </div>
               </div>
@@ -148,11 +179,14 @@
           <!-- Section V -->
           <div class="section-group">
             <span class="section-label">V. TRANSFERENCIA DE EVIDENCIA</span>
+            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+              V. TRANSFERENCIA DE EVIDENCIA
+            </div>
             <div class="mb-4 space-y-2">
               <label class="label-text">a. MOTIVO:</label>
               <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
                 <div v-for="(motivo, i) in ['Traslado', 'Peritaje', 'Resguardo', 'Disposición Judicial', 'Disposición Final']" :key="motivo" class="flex items-center gap-2">
-                  <div class="w-4 h-4 win95-sunken bg-white"></div>
+                  <div class="w-4 h-4 win95-sunken print-checkbox bg-white"></div>
                   <span class="text-[11px] font-bold">{{i+1}}. {{motivo}}</span>
                 </div>
               </div>
@@ -200,15 +234,15 @@
                 </div>
                 <div class="grid grid-cols-3 gap-2">
                   <div class="space-y-1">
-                    <div class="win95-sunken h-16 flex items-center justify-center"></div>
+                    <div class="win95-sunken print-box h-16 flex items-center justify-center"></div>
                     <span class="block text-[8px] italic">f. Firma</span>
                   </div>
                   <div class="space-y-1">
-                    <div class="win95-sunken h-16 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <div class="win95-sunken print-box h-16 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
                     <span class="block text-[8px] italic">Pulgar Izquierdo</span>
                   </div>
                   <div class="space-y-1">
-                    <div class="win95-sunken h-16 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
+                    <div class="win95-sunken print-box h-16 flex items-center justify-center"><Fingerprint :size="16" class="opacity-10" /></div>
                     <span class="block text-[8px] italic">Pulgar Derecho</span>
                   </div>
                 </div>
@@ -219,6 +253,9 @@
           <!-- Section D -->
           <div class="section-group">
             <span class="section-label">D. OBSERVACIÓN</span>
+            <div class="hidden print:block bg-[#000080] text-white py-1.5 px-3 font-bold text-[12px] mb-4 text-center tracking-widest">
+              D. OBSERVACIÓN
+            </div>
             <div class="win95-sunken mb-4">
               <div v-for="n in 7" :key="n" :class="['border-b border-gray-300 last:border-0 flex items-center px-4 py-1', n % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
                 <span class="w-8 font-bold text-gray-500">{{n}}</span>
@@ -226,7 +263,7 @@
               </div>
             </div>
             <div class="flex items-start gap-2 select-none">
-              <div class="w-4 h-4 win95-sunken bg-white border cursor-pointer mt-0.5 flex-shrink-0 flex items-center justify-center"></div>
+              <div class="w-4 h-4 win95-sunken print-checkbox bg-white border cursor-pointer mt-0.5 flex-shrink-0 flex items-center justify-center"></div>
               <span class="text-[9px] leading-tight font-bold text-gray-700">
                 Nota: la planilla de Registro de Cadena de Custodia debe permanecer siempre con la evidencia, y sólo en original, desde el instante de su llenado en el lugar de obtención hasta la disposición final de la evidencia.
               </span>
