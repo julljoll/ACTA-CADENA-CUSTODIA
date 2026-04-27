@@ -32,10 +32,25 @@
             </div>
           </div>
 
-          <!-- PRINT HEADER (matches simple green bar) -->
-          <div class="hidden print:block w-full mb-1">
-            <div class="print-header-green py-1.5 font-bold uppercase tracking-widest text-[12px] text-center w-full">
-              PLANILLA DE REGISTRO DE CADENA DE CUSTODIA (PRCC)
+          <!-- PRINT HEADER (matches PDF) -->
+          <div class="hidden print:flex w-full justify-between items-start mb-4">
+            <div class="flex flex-col">
+              <div class="flex items-stretch gap-3 mb-2">
+                <div class="w-1.5 bg-black"></div>
+                <div class="flex flex-col justify-center gap-1">
+                  <span class="text-[12px] font-bold text-gray-500 tracking-wider">REGISTRO DE EXPEDIENTE NO.</span>
+                  <span class="text-2xl font-black tracking-widest uppercase">EXP - {{ formData.expediente || '_______________' }}</span>
+                </div>
+              </div>
+              <h1 class="text-[22px] font-bold tracking-tight mt-2 mb-1">PLANILLA DE REGISTRO DE CADENA DE CUSTODIA (PRCC)</h1>
+              <h2 class="text-[11px] font-bold tracking-widest uppercase">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</h2>
+              <p class="text-[10px] text-gray-700 uppercase max-w-[500px] leading-relaxed mt-1">
+                Avenida 6, con calle 7, Edificio Mercantil La Ceiba, primer piso, oficina Nº 8, Quibor, Municipio Jiménez del Estado Lara.
+              </p>
+            </div>
+            <div class="flex flex-col items-end">
+              <span class="text-[44px] leading-none font-black italic tracking-tighter text-black">SHA256 <span class="font-light">.US</span></span>
+              <span class="text-[12px] text-gray-500 tracking-wider mt-1">laboratorio forense</span>
             </div>
           </div>
 
@@ -140,14 +155,14 @@
               VI. DESCRIPCIÓN DE LA EVIDENCIA
             </div>
             <div class="win95-sunken relative pb-6">
-              <div v-for="n in 7" :key="n" :class="['border-b border-gray-300 last:border-0 flex items-center px-4 py-1', n % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
+               <div v-for="n in 7" :key="n" :class="['border-b border-gray-300 last:border-0 flex items-center px-4 py-1', n % 2 === 0 ? 'bg-gray-100' : 'bg-white']">
                 <span class="w-8 font-bold text-gray-500">{{n}}</span>
                 <input type="text" placeholder="Marca, Modelo, Serial, Color, Estado..." class="flex-1 outline-none bg-transparent placeholder:text-gray-400 text-[11px]" />
               </div>
-              <div class="absolute bottom-1 right-2 flex items-center gap-2">
+              <div class="absolute bottom-1 right-2 flex items-center gap-2" @click="anexoA = !anexoA">
                 <span class="text-[10px] font-bold uppercase">(Anexo A)</span>
                 <div class="w-4 h-4 win95-sunken print-checkbox bg-white border cursor-pointer flex items-center justify-center">
-                  <!-- Checkbox area, user can click or mark -->
+                  <div v-if="anexoA" class="w-2 h-2 bg-black flex-shrink-0"></div>
                 </div>
               </div>
             </div>
@@ -162,8 +177,12 @@
             <div class="mb-4 space-y-2">
               <label class="label-text">a. MOTIVO:</label>
               <div class="grid grid-cols-2 md:grid-cols-5 gap-2">
-                <div v-for="(motivo, i) in ['Traslado', 'Peritaje', 'Resguardo', 'Disposición Judicial', 'Disposición Final']" :key="motivo" class="flex items-center gap-2">
-                  <div class="w-4 h-4 win95-sunken print-checkbox bg-white"></div>
+                <div v-for="(motivo, i) in ['Traslado', 'Peritaje', 'Resguardo', 'Disposición Judicial', 'Disposición Final']" :key="motivo" 
+                    @click="toggleTransferencia(i)"
+                    class="flex items-center gap-2 cursor-pointer select-none hover:bg-white/10 p-1 -m-1 rounded">
+                  <div class="w-4 h-4 win95-sunken print-checkbox bg-white flex items-center justify-center">
+                    <div v-if="transferencia[i]" class="w-2 h-2 bg-black flex-shrink-0"></div>
+                  </div>
                   <span class="text-[11px] font-bold">{{i+1}}. {{motivo}}</span>
                 </div>
               </div>
@@ -286,8 +305,22 @@ const obtencion = ref<Record<string, boolean>>({
   '4': false,
 })
 
+const anexoA = ref<boolean>(false)
+
+const transferencia = ref<Record<number, boolean>>({
+  0: false,
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+})
+
 const toggleObtencion = (id: string) => {
   obtencion.value[id] = !obtencion.value[id]
+}
+
+const toggleTransferencia = (index: number) => {
+  transferencia.value[index] = !transferencia.value[index]
 }
 
 const printDoc = () => {
