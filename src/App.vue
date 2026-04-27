@@ -19,9 +19,10 @@
         <div class="print:break-after-page print:min-h-[9.5in]">
           <!-- Screen Header -->
           <div class="flex flex-col md:flex-row items-center justify-between mb-8 gap-4 border-b-2 border-white pb-4 print:hidden">
-            <div class="flex flex-col items-start">
+            <div class="flex flex-col items-start gap-1">
               <span class="text-4xl font-black tracking-tighter text-[#161b2a]">SHA256.US</span>
-              <span class="text-[8px] font-bold text-[#000080] uppercase tracking-tight mt-0.5 max-w-[200px] leading-tight">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</span>
+              <span class="text-[8px] font-bold text-[#000080] uppercase tracking-tight max-w-[200px] leading-tight mt-1">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</span>
+              <span class="text-[8px] font-medium text-gray-700 leading-tight max-w-[280px]">Avenida 6, con calle 7, Edificio Mercantil La Ceiba, primer piso, oficina Nº 8, Quibor, Municipio Jiménez del Estado Lara.</span>
             </div>
             <div class="text-right">
               <h1 class="text-xl font-bold bg-[#000080] text-white px-4 py-1 inline-block uppercase tracking-tighter">
@@ -42,7 +43,10 @@
                 </div>
               </div>
               <h1 class="text-2xl font-bold tracking-tight mb-2">PLANILLA DE REGISTRO DE CADENA DE CUSTODIA (PRCC)</h1>
-              <h2 class="text-[11px] font-bold tracking-widest uppercase">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</h2>
+              <h2 class="text-[11px] font-bold tracking-widest uppercase mb-1">LABORATORIO DE INFORMÁTICA FORENSE Y CIBERSEGURIDAD SHA256.US</h2>
+              <p class="text-[10px] text-gray-700 uppercase max-w-[500px] leading-relaxed">
+                Avenida 6, con calle 7, Edificio Mercantil La Ceiba, primer piso, oficina Nº 8, Quibor, Municipio Jiménez del Estado Lara.
+              </p>
             </div>
             <div class="flex flex-col items-end">
               <span class="text-4xl font-black italic tracking-tighter">SHA256 <span class="font-light">.US</span></span>
